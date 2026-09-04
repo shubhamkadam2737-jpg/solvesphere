@@ -4,59 +4,87 @@
 
 > Identify Problems. Connect People. Build Solutions. Create Measurable Impact.
 
-## Standalone source code
+SolveSphere is now a standalone professional **Vite + React + TypeScript** application. Hatchable is not required.
 
-SolveSphere is now stored in this GitHub repository as a standalone frontend. **Hatchable configuration and Hatchable authentication dependencies have been removed from the repository.**
+## Architecture
 
 ```text
 solvesphere/
-├── README.md
-└── public/
-    ├── index.html      # Main React SPA shell / homepage entry
-    ├── app.js          # React application logic, role workspaces and interactions
-    ├── theme.css       # Responsive visual system and component styling
-    └── login.html      # Standalone role-select login page
+├── index.html
+├── package.json
+├── vite.config.ts
+├── tsconfig.json
+├── tsconfig.app.json
+├── tsconfig.node.json
+├── .env.example
+├── .gitignore
+└── src/
+    ├── App.tsx
+    ├── main.tsx
+    ├── vite-env.d.ts
+    ├── components/
+    │   ├── Layout.tsx
+    │   ├── Logo.tsx
+    │   └── ProtectedRoute.tsx
+    ├── context/
+    │   └── AuthContext.tsx
+    ├── data/
+    │   └── mockData.ts
+    ├── db/
+    │   └── schema.sql
+    ├── lib/
+    │   └── storage.ts
+    ├── pages/
+    │   ├── Home.tsx
+    │   ├── Login.tsx
+    │   ├── Dashboard.tsx
+    │   ├── Challenges.tsx
+    │   ├── ChallengeDetails.tsx
+    │   ├── Teams.tsx
+    │   ├── Solutions.tsx
+    │   ├── Notifications.tsx
+    │   ├── Profile.tsx
+    │   ├── Admin.tsx
+    │   └── NotFound.tsx
+    ├── services/
+    │   ├── api.ts
+    │   └── auth.ts
+    ├── styles/
+    │   └── index.css
+    └── types/
+        └── index.ts
 ```
 
-## Implemented product areas
+## Features
 
-- Citizen, Student, Mentor and Admin role workspaces
-- Login as Citizen / Student / Mentor / Admin
-- Email/code-style login flow for the prototype
-- Challenge reporting and lifecycle/status tracking
-- Challenge filters: category, location, status, priority, newest/oldest
-- Challenge photos and video upload UI
-- Student team creation and team workspace
-- Student final solution submission with files and demo video
-- Mentor solution review, approval and change requests
-- Admin challenge accept/deny, priority and status controls
-- Admin user, team, solution and platform report views
-- Notifications for new challenges, team activity, mentor feedback and progress
-- Profile with current role and contribution metrics
-- SolveSphere logo and civic-tech branding
-- Responsive React UI with Tailwind CDN utilities and Lucide icons
+- Citizen / Student / Mentor / Admin role-based access
+- Protected routes and role-aware Admin console
+- Challenge discovery and priority/status tracking
+- Challenge details and solution readiness
+- Team workspace
+- Solution submission/review workflow foundation
+- Notifications and profile pages
+- Axios API service with bearer-token interceptor
+- PostgreSQL/Supabase-ready database schema
+- Standalone email + 6-digit demo-code authentication abstraction
+- Responsive SolveSphere branding and supplied logo
 
 ## Run locally
 
-The current frontend is a browser-first static React implementation. No Hatchable runtime is required for the demo login flow.
-
-From the repository root, serve the `public/` folder with any static web server, for example:
-
 ```bash
-npx serve public
+npm install
+npm run dev
 ```
 
-You can also use VS Code Live Server or another static HTTP server.
+Build for production:
 
-## Important prototype note
+```bash
+npm run build
+npm run preview
+```
 
-The current login is a **frontend demo authentication flow**: it accepts a 6-digit demo code and stores the selected profile in browser `localStorage`. For production, connect it to a real authentication provider/backend and database rather than storing authentication state only in the browser.
+## Backend / database
 
-## Tech
+The frontend is intentionally separated from the backend through `src/services/api.ts`. Set `VITE_API_URL` in `.env` when a backend is available. The SQL schema in `src/db/schema.sql` is PostgreSQL-compatible and can be used with Supabase or another PostgreSQL service.
 
-- React 18
-- JavaScript
-- Tailwind CSS CDN utilities
-- Lucide icons
-- HTML/CSS
-- Browser localStorage for prototype state
+The current authentication implementation is a development/demo adapter. For production, connect `src/services/auth.ts` to a real email/OTP or passwordless authentication backend and issue signed access/refresh tokens. Never store passwords in frontend localStorage.
