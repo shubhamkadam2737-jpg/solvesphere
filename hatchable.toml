@@ -1,6 +1,0 @@
-[auth]
-enabled = true
-providers = ["email"]
-
-[ai]
-required = true
