@@ -1,0 +1,17 @@
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import { Layout } from './components/Layout'
+import { Home } from './pages/Home'
+import { Login } from './pages/Login'
+import { Dashboard } from './pages/Dashboard'
+import { Challenges } from './pages/Challenges'
+import { ChallengeDetails } from './pages/ChallengeDetails'
+import { Teams } from './pages/Teams'
+import { Solutions } from './pages/Solutions'
+import { Notifications } from './pages/Notifications'
+import { Profile } from './pages/Profile'
+import { Admin } from './pages/Admin'
+import { NotFound } from './pages/NotFound'
+
+export default function App(){return <AuthProvider><BrowserRouter><Routes><Route path="/" element={<Home/>}/><Route path="/login" element={<Login/>}/><Route element={<ProtectedRoute><Layout/></ProtectedRoute>}><Route path="/dashboard" element={<Dashboard/>}/><Route path="/challenges" element={<Challenges/>}/><Route path="/challenges/:id" element={<ChallengeDetails/>}/><Route path="/teams" element={<Teams/>}/><Route path="/solutions" element={<Solutions/>}/><Route path="/notifications" element={<Notifications/>}/><Route path="/profile" element={<Profile/>}/></Route><Route element={<ProtectedRoute roles={['Admin']}><Layout/></ProtectedRoute>}><Route path="/admin" element={<Admin/>}/></Route><Route path="*" element={<NotFound/>}/></Routes></BrowserRouter></AuthProvider>}
