@@ -1,0 +1,2 @@
+import { teams } from '../data/mockData'
+export function Teams(){return <section className="page"><div className="page-head"><div><span className="eyebrow">Student collaboration</span><h1>Teams</h1><p>Build focused teams around challenges and ship solutions together.</p></div><button className="btn btn-primary">Create team</button></div><div className="cards">{teams.map(t=><article className="panel" key={t.id}><span className="badge">{t.status}</span><h2>{t.name}</h2><p>{t.challenge}</p><strong>{t.members} members</strong></article>)}</div></section>}
