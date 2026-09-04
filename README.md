@@ -4,26 +4,25 @@
 
 > Identify Problems. Connect People. Build Solutions. Create Measurable Impact.
 
-## Source code
+## Standalone source code
 
-This repository contains the current SolveSphere frontend/source mirror used for the Hatchable deployment.
+SolveSphere is now stored in this GitHub repository as a standalone frontend. **Hatchable configuration and Hatchable authentication dependencies have been removed from the repository.**
 
 ```text
 solvesphere/
-├── hatchable.toml
 ├── README.md
 └── public/
-    ├── index.html      # Main SPA shell / homepage entry
+    ├── index.html      # Main React SPA shell / homepage entry
     ├── app.js          # React application logic, role workspaces and interactions
     ├── theme.css       # Responsive visual system and component styling
-    └── login.html      # Role-select email verification login page
+    └── login.html      # Standalone role-select login page
 ```
 
 ## Implemented product areas
 
 - Citizen, Student, Mentor and Admin role workspaces
 - Login as Citizen / Student / Mentor / Admin
-- Email verification authentication flow
+- Email/code-style login flow for the prototype
 - Challenge reporting and lifecycle/status tracking
 - Challenge filters: category, location, status, priority, newest/oldest
 - Challenge photos and video upload UI
@@ -39,12 +38,25 @@ solvesphere/
 
 ## Run locally
 
-The current source is a browser-first static React implementation. Serve the `public/` directory with any static web server.
+The current frontend is a browser-first static React implementation. No Hatchable runtime is required for the demo login flow.
 
-Example:
+From the repository root, serve the `public/` folder with any static web server, for example:
 
 ```bash
 npx serve public
 ```
 
-The app is written to work with Hatchable's browser-injected authentication and can be extended with REST APIs and persistent database storage when moving beyond the prototype.
+You can also use VS Code Live Server or another static HTTP server.
+
+## Important prototype note
+
+The current login is a **frontend demo authentication flow**: it accepts a 6-digit demo code and stores the selected profile in browser `localStorage`. For production, connect it to a real authentication provider/backend and database rather than storing authentication state only in the browser.
+
+## Tech
+
+- React 18
+- JavaScript
+- Tailwind CSS CDN utilities
+- Lucide icons
+- HTML/CSS
+- Browser localStorage for prototype state
